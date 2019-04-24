@@ -75,19 +75,9 @@ class _MyHomePageState extends State<MyHomePage> {
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Container(
-          child: Stack(
-            alignment: AlignmentDirectional.bottomEnd,
-            children: <Widget>[
-              new Text(
-                'Hello world',
-                style: new TextStyle(
-                  color: Colors.teal,
-                  fontStyle: FontStyle.italic,
-                  fontSize: 28,
-                  ),
-              ) ,
-              new Text(" Hai")
-            ],
+          child: Image(
+            // image: NetworkImage('https://images.gamewatcherstatic.com/image/file/6/ef/97886/Anthem_Iron_Man.jpg'),
+            image: AssetImage("assets/images/ironman1.jpg"),
           ),
         ),
        

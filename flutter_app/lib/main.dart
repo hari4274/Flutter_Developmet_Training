@@ -18,9 +18,9 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.teal,
       ),
-      home: MyHomePage(title: 'Flutter Page-1'),
+      home: MyHomePage(title: 'Flutter Page-2'),
     );
   }
 }
@@ -74,10 +74,17 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-       child: Text(
-         'Hello-World',
-         style: TextStyle(fontWeight: FontWeight.bold),
-       ),
+        child: Container(
+          width: 250.0,
+          height: 500.0,
+          color: Colors.red,
+          child: Text(
+              'Hello World',
+              style: TextStyle(fontWeight: FontWeight.bold),
+              textAlign: TextAlign.right,
+          ),
+        ),
+       
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,

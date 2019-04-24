@@ -1,10 +1,13 @@
-## PAT_flutter - Hari
+## flutter_app - Hari
 
+* Based on Udemy course:
+
+    https://www.udemy.com/flutter-mobile-development/learn/lecture/13770914#overview
 
 Git Clone by branch:
 -------------------
 
-	git clone https://balahariprasath@bitbucket.org/daikanpheonix/pat_flutter.git -b hpat_flutter
+	git clone https://github.com/hari4274/Flutter_Developmet_Training.git -b master
 
    cd pat_flutter
 

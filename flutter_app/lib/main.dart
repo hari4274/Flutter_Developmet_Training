@@ -74,8 +74,9 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: SizedBox(
-          width: 300.0,
+        child: Transform(
+          origin: Offset(100, 100),
+          transform: Matrix4.rotationZ(-0.785),
           child:Image(
             image: AssetImage("assets/images/ironman1.jpg")
           ),

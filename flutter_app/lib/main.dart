@@ -75,9 +75,20 @@ class _MyHomePageState extends State<MyHomePage> {
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Container(
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: Text("Hello World"),
+          child: Row(
+            children: <Widget>[
+              new Text("Hello Wolrd Hari",
+                style: new TextStyle(
+                  color: Colors.amber,
+                  fontSize: 28.0
+                ),
+              ),
+              new ConstrainedBox(
+                constraints: BoxConstraints(minWidth: 50),
+                child: new Text("Wow"),
+              ),
+              new Text("End")
+            ],
           ),
         ),
        

@@ -74,11 +74,17 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Transform(
-          origin: Offset(100, 100),
-          transform: Matrix4.rotationZ(-0.785),
-          child:Image(
-            image: AssetImage("assets/images/ironman1.jpg")
+        child: Container(
+          child: Listener(
+            onPointerDown: (PointerDownEvent event){
+              print("Clicked");
+              // print(event);
+            },
+            onPointerMove: (PointerMoveEvent event){
+              print("Moved");
+              print(event);
+            },
+            child:Image(image: AssetImage("assets/images/ironman1.jpg")),
           ),
         ),
        

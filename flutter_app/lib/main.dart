@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.teal,
       ),
-      home: MyHomePage(title: 'Flutter Page-2'),
+      home: MyHomePage(title: 'Flutter Demo Page'),
       debugShowCheckedModeBanner: true,
     );
   }
@@ -68,6 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.cyan,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
@@ -75,30 +76,20 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
+       
+      ),
+      bottomNavigationBar: BottomAppBar(
         child: Container(
-          child: GestureDetector(
-            onPanStart: (DragStartDetails details){
-              print("pan Start");
-              print(details);
-            },
-            onPanUpdate: (DragUpdateDetails details){
-              print("Pan update");
-              print(details);
-            },
-            child:Image(image: AssetImage("assets/images/ironman1.jpg")),
+          height: 50.0,
+          child: Center(
+            child: Text("Bottom App Bar")
           ),
         ),
-       
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: GestureDetector(
-          onTap: (){
-            print("Floating Buttons Tabed");
-          },
-          child: Icon(Icons.add),
-        ),
+        child: Icon(Icons.airplay),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

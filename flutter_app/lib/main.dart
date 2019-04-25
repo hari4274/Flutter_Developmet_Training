@@ -44,43 +44,45 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-enum Movies { CaptainMarvel, IronMan }
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int _selectedIndex = 1;
 
-  Future<void> OpenDialog() async {
-    switch(await showDialog(
+  Future<void>OpenAlert() async {
+    return showDialog(
       context: context,
-      builder: (BuildContext context){
-        return SimpleDialog(
-          title: const Text("Select A Movie"),
-          children: <Widget>[
-            SimpleDialogOption(
-              onPressed: (){
-                Navigator.pop(context, Movies.CaptainMarvel);
-              },
-              child: const Text("Captain Marvel"),
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Phone Alert"),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text("Your phone is too hot !!!"),
+                Text("Put in watter :D")
+              ],
             ),
-            SimpleDialogOption(
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("I understand"),
               onPressed: (){
-                Navigator.pop(context, Movies.IronMan);
+                Navigator.of(context).pop();
               },
-              child: const Text("Iron Man"),
             ),
+            FlatButton(
+              child: Text("Exit App"),
+              onPressed: (){
+                Navigator.of(context).pop();
+              },
+            )
           ],
         );
       }
-    )){
-      case Movies.CaptainMarvel:
-        print("Captain Marvel Selected");
-        break;
-      case Movies.IronMan:
-        print("Iron Man Selected");
-        break;
-    }
+    );
   }
+
 
   void _incrementCounter() {
     setState(() {
@@ -160,9 +162,9 @@ class _MyHomePageState extends State<MyHomePage> {
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: IconButton(
-          icon: Icon(Icons.play_circle_filled),
+          icon: Icon(Icons.add_alert),
           onPressed: (){
-            OpenDialog();
+            OpenAlert();
           },
         ),
       ),

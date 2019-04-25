@@ -44,11 +44,12 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-String dropdownStr = "Iron Man1";
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int _selectedIndex = 1;
+
+  String txt = "";
 
 
   void _incrementCounter() {
@@ -128,21 +129,13 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: DropdownButton <String>(
-          value: dropdownStr,
-          onChanged: (String newValue){
-            setState(() {
-              dropdownStr = newValue;
-            });
+        child: TextField(
+          onChanged: (String str){
+            print(str);
+            txt = str;
           },
-          items: <String> ['Iron Man1', 'Iron Man2', 'Iron Man3']
-            .map<DropdownMenuItem<String>>((String value){
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList()
-        ),
+                   
+        )
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[

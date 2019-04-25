@@ -60,21 +60,20 @@ class _MyHomePageState extends State<MyHomePage> {
 			navigationBar: CupertinoNavigationBar(
 				backgroundColor: Colors.red,
 			),
-			child: Container(
-				height: 200,
-				child: CupertinoPicker(
-					itemExtent: 50,
-					onSelectedItemChanged: (int index) {
-						print(index);
-					},
-					children: <Widget>[
-						Text("Item 1", style: TextStyle(color: Colors.black, decoration: TextDecoration.none),),
-						Text("Item 2"),
-						Text("Item 3"),
-						Text("Item 4"),
-						Text("Item 5"),
-					],
-				),
+			child: SafeArea(
+				child: Container(
+					child: RaisedButton(
+						child: Text("Click me"),
+						onPressed: (){
+							showCupertinoModalPopup(
+								context: context,
+								builder: (BuildContext context) => CupertinoPopupSurface(
+									child: Text("Hello"),
+								)
+							);
+						},
+					),
+				)
 			)
 		);
 	}

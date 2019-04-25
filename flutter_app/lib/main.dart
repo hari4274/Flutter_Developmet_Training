@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.teal,
+        primarySwatch: Colors.red,
       ),
       home: MyHomePage(title: 'Flutter Demo Page'),
       debugShowCheckedModeBanner: true,
@@ -48,6 +48,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int _selectedIndex = 1;
+  int group = 1;
 
   bool checkBoxValue = false;
 
@@ -140,7 +141,41 @@ class _MyHomePageState extends State<MyHomePage> {
                 });
               },              
             ),
-            Text("Notification")
+            Text("Notification"),
+
+            Radio(
+              value: 1,
+              groupValue: group,
+              onChanged: (T){
+                print(T);
+                setState(() {
+                  group = T;
+                });
+              },
+            ),
+            Text("One"),
+            Radio(
+              value: 2,
+              groupValue: group,
+              onChanged: (T){
+                print(T);
+                setState(() {
+                  group = T;
+                });
+              },
+            ),
+            Text("Two"),
+            Radio(
+              value: 3,
+              groupValue: group,
+              onChanged: (T){
+                print(T);
+                setState(() {
+                  group = T;
+                });
+              },
+            ),
+            Text("Three"),
           ],
         ),
       ),

@@ -46,6 +46,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  int _selectedIndex = 1;
 
   void _incrementCounter() {
     setState(() {
@@ -64,6 +65,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void addInfoToContact() {
     print("Add Information To Contact Pressed");
+  }
+
+  void itemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    print("Bottom Nav Item Tapped");
   }
 
   @override
@@ -102,10 +110,13 @@ class _MyHomePageState extends State<MyHomePage> {
       
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
+          BottomNavigationBarItem(icon: Image(width: 30, image: AssetImage("assets/images/icon-home.png"),), title: Text("Home")),
           BottomNavigationBarItem(icon: Icon(Icons.business), title: Text("Business")),
-          BottomNavigationBarItem(icon: Icon(Icons.school), title: Text("School")),
-        ]
+          BottomNavigationBarItem(icon: Icon(Icons.school), title: Text("School"))
+        ],
+        currentIndex: _selectedIndex,
+        onTap: itemTapped,
+        fixedColor: Colors.pink,
       ),
 
       floatingActionButton: FloatingActionButton(

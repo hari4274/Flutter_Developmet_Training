@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
       ),
       home: MyHomePage(title: 'Flutter Page-2'),
+      debugShowCheckedModeBanner: true,
     );
   }
 }
@@ -76,11 +77,13 @@ class _MyHomePageState extends State<MyHomePage> {
         // in the middle of the parent.
         child: Container(
           child: GestureDetector(
-            onLongPress: (){
-              print("LongPress");
+            onVerticalDragStart: (DragStartDetails details){
+              print("Drag Start");
+              print(details);
             },
-            onLongPressUp: (){
-              print("LongPress Released");
+            onVerticalDragUpdate: (DragUpdateDetails details){
+              print("Drag update");
+              print(details);
             },
             child:Image(image: AssetImage("assets/images/ironman1.jpg")),
           ),

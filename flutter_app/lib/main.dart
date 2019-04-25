@@ -44,13 +44,13 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+enum WhyFather { harder, smarter, selfStarter, tradingCharter}
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int _selectedIndex = 1;
-  int group = 1;
+  WhyFather _selection;
 
-  bool checkBoxValue = false;
 
 
   void _incrementCounter() {
@@ -130,52 +130,30 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Row(
-          children: <Widget>[
-            Checkbox(
-              value: checkBoxValue,
-              onChanged: (bool value){
-                print(value);
-                setState(() {
-                  checkBoxValue = value;
-                });
-              },              
+        child: PopupMenuButton <WhyFather>(
+          onSelected: (WhyFather result){
+            print(result);
+            setState(() {
+              _selection = result;
+            });
+          },
+          itemBuilder: (BuildContext context) => <PopupMenuEntry<WhyFather>>[
+            const PopupMenuItem<WhyFather>(
+              value: WhyFather.harder,
+              child: Text("Working a lot harder"),
             ),
-            Text("Notification"),
-
-            Radio(
-              value: 1,
-              groupValue: group,
-              onChanged: (T){
-                print(T);
-                setState(() {
-                  group = T;
-                });
-              },
+            const PopupMenuItem<WhyFather>(
+              value: WhyFather.smarter,
+              child: Text("Being a lot smarter"),
             ),
-            Text("One"),
-            Radio(
-              value: 2,
-              groupValue: group,
-              onChanged: (T){
-                print(T);
-                setState(() {
-                  group = T;
-                });
-              },
+            const PopupMenuItem<WhyFather>(
+              value: WhyFather.selfStarter,
+              child: Text("Being a lot selfStarter"),
             ),
-            Text("Two"),
-            Radio(
-              value: 3,
-              groupValue: group,
-              onChanged: (T){
-                print(T);
-                setState(() {
-                  group = T;
-                });
-              },
+            const PopupMenuItem<WhyFather>(
+              value: WhyFather.tradingCharter,
+              child: Text("Placed in chanrge of the tradingCharter"),
             ),
-            Text("Three"),
           ],
         ),
       ),

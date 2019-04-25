@@ -91,6 +91,19 @@ class _MyHomePageState extends State<MyHomePage> {
             title: Text("Epic Sliver"),
           ),
         ),
+        SliverFixedExtentList(
+          itemExtent: 50.0,
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index){
+              return Container(
+                alignment: Alignment.center,
+                color: Colors.cyanAccent,
+                child: Text("List Item $index"),
+              );
+            },
+            childCount: 20
+          ),
+        ),
       ],
     );
   }

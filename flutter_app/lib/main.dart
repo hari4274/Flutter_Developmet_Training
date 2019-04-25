@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 
 void main() => runApp(MyApp());
 
@@ -54,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
 		decoration: TextDecoration.none,
 		fontSize: 20,
 	);
-  int currentPage = 0;
+
 	String val = "";
 
 	@override
@@ -65,19 +64,21 @@ class _MyHomePageState extends State<MyHomePage> {
 		// The Flutter framework has been optimized to make rerunning build methods
 		// fast, so that you can just rebuild anything that needs updating rather
 		// than having to individually change instances of widgets.
-		return Scaffold(
-			bottomNavigationBar: FancyBottomNavigation(
-          tabs: [
-              TabData(iconData: Icons.home, title: "Home"),
-              TabData(iconData: Icons.search, title: "Search"),
-              TabData(iconData: Icons.shopping_cart, title: "Basket")
-          ],
-          onTabChangedListener: (position) {
-              setState(() {
-              currentPage = position;
-              });
-          },
-      ),
+		return CupertinoPageScaffold(
+			navigationBar: CupertinoNavigationBar(
+				backgroundColor: Colors.indigo,
+			),
+			child: SafeArea(
+				child: Container(
+					child: CupertinoTextField(
+						style: tStyle,
+						onChanged: (String value){
+							val = value;							
+							print(value);
+						},
+					),
+				)
+			)
 		);
 	}
 }

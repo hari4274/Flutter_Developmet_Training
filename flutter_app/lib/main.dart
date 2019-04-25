@@ -76,8 +76,11 @@ class _MyHomePageState extends State<MyHomePage> {
         // in the middle of the parent.
         child: Container(
           child: GestureDetector(
-            onDoubleTap: (){
-              print("DoubleTabed");
+            onLongPress: (){
+              print("LongPress");
+            },
+            onLongPressUp: (){
+              print("LongPress Released");
             },
             child:Image(image: AssetImage("assets/images/ironman1.jpg")),
           ),
@@ -87,7 +90,12 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: GestureDetector(
+          onTap: (){
+            print("Floating Buttons Tabed");
+          },
+          child: Icon(Icons.add),
+        ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

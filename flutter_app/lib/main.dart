@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
 		fontSize: 20,
 	);
 
-	double sliderValue = 0;
+	bool switchValue = false;
 
 	@override
 	Widget build(BuildContext context) {
@@ -70,18 +70,15 @@ class _MyHomePageState extends State<MyHomePage> {
 			),
 			child: SafeArea(
 				child: Container(
-					child: CupertinoSlider(
-						value: sliderValue,
-						onChanged: (double val) {
-							print(val);
+					child: CupertinoSwitch(
+						value: switchValue,
+						onChanged: (bool val){
 							setState(() {
-							  sliderValue = val;
+							  	switchValue = val;
 							});
+							print(val);
 						},
-						min: 0,
-						max: 100,
-						divisions: 100,
-					),
+					)
 				)
 			)
 		);

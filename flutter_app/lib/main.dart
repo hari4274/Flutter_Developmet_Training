@@ -49,9 +49,7 @@ enum WhyFather { harder, smarter, selfStarter, tradingCharter}
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int _selectedIndex = 1;
-  WhyFather _selection;
-
-
+  int _volume = 100;
 
   void _incrementCounter() {
     setState(() {
@@ -131,11 +129,12 @@ class _MyHomePageState extends State<MyHomePage> {
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: IconButton(
-          icon: Icon(Icons.map),
+          icon: Icon(Icons.volume_down),
           tooltip: "Open the Map for the contact",
           onPressed: (){
             setState(() {
-              print("Opening the Map");
+              _volume -=10;
+              print(_volume);
             });
           },
         ),

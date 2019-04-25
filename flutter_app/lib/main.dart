@@ -77,11 +77,11 @@ class _MyHomePageState extends State<MyHomePage> {
         // in the middle of the parent.
         child: Container(
           child: GestureDetector(
-            onVerticalDragStart: (DragStartDetails details){
+            onHorizontalDragStart: (DragStartDetails details){
               print("Drag Start");
               print(details);
             },
-            onVerticalDragUpdate: (DragUpdateDetails details){
+            onHorizontalDragUpdate: (DragUpdateDetails details){
               print("Drag update");
               print(details);
             },

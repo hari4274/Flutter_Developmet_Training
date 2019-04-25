@@ -76,8 +76,8 @@ class _MyHomePageState extends State<MyHomePage> {
         // in the middle of the parent.
         child: Container(
           child: GestureDetector(
-            onTap: (){
-              print("Tapped");
+            onDoubleTap: (){
+              print("DoubleTabed");
             },
             child:Image(image: AssetImage("assets/images/ironman1.jpg")),
           ),

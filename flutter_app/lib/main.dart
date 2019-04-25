@@ -77,12 +77,12 @@ class _MyHomePageState extends State<MyHomePage> {
         // in the middle of the parent.
         child: Container(
           child: GestureDetector(
-            onHorizontalDragStart: (DragStartDetails details){
-              print("Drag Start");
+            onPanStart: (DragStartDetails details){
+              print("pan Start");
               print(details);
             },
-            onHorizontalDragUpdate: (DragUpdateDetails details){
-              print("Drag update");
+            onPanUpdate: (DragUpdateDetails details){
+              print("Pan update");
               print(details);
             },
             child:Image(image: AssetImage("assets/images/ironman1.jpg")),

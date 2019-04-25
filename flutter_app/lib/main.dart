@@ -65,9 +65,40 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
 
       body: Center(
-        child: CupertinoButton(
-          child: Text("Hello"),
-          onPressed: null,
+        child: RaisedButton(
+          child: Text("Click Me"),
+          onPressed: (){
+            print("Im Pressed");
+            final act = CupertinoActionSheet(
+              title: Text("Food Choices"),
+              message: Text("What would you like to eat?"),
+              actions: <Widget>[
+                CupertinoActionSheetAction(
+                  child: Text("Pizza"),
+                  onPressed: (){
+                    print("You have selected Pizza");
+                    Navigator.pop(context);
+                  },
+                ),
+                CupertinoActionSheetAction(
+                  child: Text("Cokiee"),
+                  onPressed: (){
+                    print("You have selected Cookie");
+                  },
+                ),
+              ],
+              cancelButton: CupertinoActionSheetAction(
+                child: Text("Cancel"),
+                onPressed: (){
+                  Navigator.pop(context);
+                },
+              ),
+            );
+            showCupertinoModalPopup(
+              context: context,
+              builder: (BuildContext context) => act
+            );
+          },
         ),
       ),
     );

@@ -49,35 +49,37 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int _selectedIndex = 1;
 
-  Future<void>OpenAlert() async {
-    return showDialog(
+  void openBottomSheet(context) {
+    showModalBottomSheet(
       context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Phone Alert"),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text("Your phone is too hot !!!"),
-                Text("Put in watter :D")
-              ],
-            ),
+      builder: (BuildContext context){
+        return Container(
+          child: Wrap(
+            children: <Widget>[
+              ListTile(
+                leading: Icon(Icons.map),
+                title: Text("Map"),
+                onTap: (){
+                  print("Open Map");
+                  Navigator.of(context).pop();  // Close Bottom sheet after clicked
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.alarm),
+                title: Text("Alarm"),
+                onTap: (){
+                  print("Open Alarm");
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.phone),
+                title: Text("Phone"),
+                onTap: (){
+                  print("Open Phone");
+                },
+              )
+            ],
           ),
-          actions: <Widget>[
-            FlatButton(
-              child: Text("I understand"),
-              onPressed: (){
-                Navigator.of(context).pop();
-              },
-            ),
-            FlatButton(
-              child: Text("Exit App"),
-              onPressed: (){
-                Navigator.of(context).pop();
-              },
-            )
-          ],
         );
       }
     );
@@ -162,9 +164,9 @@ class _MyHomePageState extends State<MyHomePage> {
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: IconButton(
-          icon: Icon(Icons.add_alert),
+          icon: Icon(Icons.open_in_new),
           onPressed: (){
-            OpenAlert();
+            openBottomSheet(context);
           },
         ),
       ),

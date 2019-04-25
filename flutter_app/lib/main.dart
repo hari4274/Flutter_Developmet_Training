@@ -128,23 +128,12 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: ButtonBar(
-          alignment: MainAxisAlignment.center,
-          
-          children: <Widget>[
-            FlatButton(
-              onPressed: (){
+        child: FloatingActionButton(
+          onPressed: () {
+            print("FloatingActionButton1 Pressed");
+          },
+          child: Icon(Icons.add),
 
-              },
-              child: Text("Hello"),
-            ),
-            FlatButton(
-              onPressed: (){
-
-              },
-              child: Text("Second Button"),
-            )
-          ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -159,10 +148,13 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {
+            print("FloatingActionButton1 Pressed");
+        },
+        child: Icon(Icons.add),
         tooltip: 'Increment',
-        child: Icon(Icons.airplay),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat, // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

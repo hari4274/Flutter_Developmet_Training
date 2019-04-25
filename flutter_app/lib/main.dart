@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
 		fontSize: 20,
 	);
 
-	bool switchValue = false;
+	int state = 0;
 
 	@override
 	Widget build(BuildContext context) {
@@ -73,15 +73,20 @@ class _MyHomePageState extends State<MyHomePage> {
 			),
 			child: SafeArea(
 				child: Container(
-					child: CupertinoSwitch(
-						value: switchValue,
-						onChanged: (bool val){
+					child: CupertinoTabBar(
+						items: <BottomNavigationBarItem>[
+							BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
+							BottomNavigationBarItem(icon: Icon(Icons.menu), title: Text("Menu")),
+							BottomNavigationBarItem(icon: Icon(Icons.supervisor_account), title: Text("Account")),
+						],
+						currentIndex: state,
+						onTap: (int index){
+							print(index);
 							setState(() {
-							  	switchValue = val;
+							  state = index;
 							});
-							print(val);
 						},
-					)
+					),
 				)
 			)
 		);

@@ -50,22 +50,19 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int _selectedIndex = 1;
 
-  DateTime _date = DateTime.now();
+  TimeOfDay _time = TimeOfDay.now();
+  TimeOfDay picked;
 
-  Future<Null> selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+  Future<Null> selectTime(BuildContext context) async {
+    picked = await showTimePicker(
       context: context,
-      initialDate: _date,
-      firstDate: DateTime(1970),
-      lastDate: DateTime(2100),
+      initialTime: _time,
     );
 
-    if(picked != null && picked != _date) {
-      setState(() {
-        _date = picked;
-        print(_date.toString());
-      });
-    }
+    setState(() {
+      _time = picked;
+      print(_time);
+    });
   }
 
   void _incrementCounter() {
@@ -147,8 +144,8 @@ class _MyHomePageState extends State<MyHomePage> {
         // in the middle of the parent.
         child: IconButton(
           icon: Icon(Icons.alarm),
-          onPressed: () {
-            selectDate(context);
+          onPressed: (){
+            selectTime(context);
           },
         ),
       ),

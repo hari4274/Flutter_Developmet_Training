@@ -49,12 +49,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
 	TextStyle tStyle = TextStyle(
-		color: Colors.white,
+		color: Colors.indigo,
 		decoration: TextDecoration.none,
 		fontSize: 20,
 	);
 
-	int state = 0;
+	String val = "";
 
 	@override
 	Widget build(BuildContext context) {
@@ -64,40 +64,21 @@ class _MyHomePageState extends State<MyHomePage> {
 		// The Flutter framework has been optimized to make rerunning build methods
 		// fast, so that you can just rebuild anything that needs updating rather
 		// than having to individually change instances of widgets.
-		return CupertinoTabScaffold(
-			tabBar: CupertinoTabBar(
-				items: <BottomNavigationBarItem>[
-					BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
-					BottomNavigationBarItem(icon: Icon(Icons.menu), title: Text("Menu")),
-					BottomNavigationBarItem(icon: Icon(Icons.supervisor_account), title: Text("Account")),
-				],
-				currentIndex: state,
-				onTap: (int index){
-					print(index);
-					setState(() {
-						state = index;
-					});
-				},
+		return CupertinoPageScaffold(
+			navigationBar: CupertinoNavigationBar(
+				backgroundColor: Colors.indigo,
 			),
-			tabBuilder: (BuildContext context, int index){
-				return CupertinoTabView(
-					builder: (BuildContext context){
-						return CupertinoPageScaffold(
-							navigationBar: CupertinoNavigationBar(
-								leading: Icon(Icons.arrow_back_ios),
-								middle: Text("Training App", style: TextStyle(color: Colors.white),),
-								trailing: Icon(Icons.account_circle),
-								backgroundColor: Colors.indigo,
-							),
-							child: SafeArea(
-								child: Container(
-								)
-							)
-						);
-					},
-
-				);
-			},
-		);	
+			child: SafeArea(
+				child: Container(
+					child: CupertinoTextField(
+						style: tStyle,
+						onChanged: (String value){
+							val = value;							
+							print(value);
+						},
+					),
+				)
+			)
+		);
 	}
 }

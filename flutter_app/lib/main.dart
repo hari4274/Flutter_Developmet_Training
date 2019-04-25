@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
 				// or simply save your changes to "hot reload" in a Flutter IDE).
 				// Notice that the counter didn't reset back to zero; the application
 				// is not restarted.
-				primarySwatch: Colors.red,
+				primarySwatch: Colors.blue,
 			),
 			home: MyHomePage(title: 'Flutter Demo Page'),
 			debugShowCheckedModeBanner: true,
@@ -49,7 +49,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
 	TextStyle tStyle = TextStyle(
-		color: Colors.black,
+		color: Colors.white,
 		decoration: TextDecoration.none,
 		fontSize: 20,
 	);
@@ -66,7 +66,10 @@ class _MyHomePageState extends State<MyHomePage> {
 		// than having to individually change instances of widgets.
 		return CupertinoPageScaffold(
 			navigationBar: CupertinoNavigationBar(
-				backgroundColor: Colors.red,
+				leading: Icon(Icons.arrow_back_ios),
+				middle: Text("Training App", style: TextStyle(color: Colors.white),),
+				trailing: Icon(Icons.account_circle),
+				backgroundColor: Colors.indigo,
 			),
 			child: SafeArea(
 				child: Container(

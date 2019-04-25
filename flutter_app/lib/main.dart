@@ -58,14 +58,24 @@ class _MyHomePageState extends State<MyHomePage> {
 		// than having to individually change instances of widgets.
 		return CupertinoPageScaffold(
 			navigationBar: CupertinoNavigationBar(
-				trailing: CupertinoButton(
-					child: Text("Save"),
-				),
 				backgroundColor: Colors.red,
 			),
-			child: SafeArea(
-				child: Text("Hello"),
-			),
+			child: Container(
+				height: 200,
+				child: CupertinoPicker(
+					itemExtent: 50,
+					onSelectedItemChanged: (int index) {
+						print(index);
+					},
+					children: <Widget>[
+						Text("Item 1", style: TextStyle(color: Colors.black, decoration: TextDecoration.none),),
+						Text("Item 2"),
+						Text("Item 3"),
+						Text("Item 4"),
+						Text("Item 5"),
+					],
+				),
+			)
 		);
 	}
 }

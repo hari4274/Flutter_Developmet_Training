@@ -49,8 +49,7 @@ enum WhyFather { harder, smarter, selfStarter, tradingCharter}
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int _selectedIndex = 1;
-  int _volume = 100;
-  bool state = false;
+  double sliderAmount = 0;
 
   void _incrementCounter() {
     setState(() {
@@ -129,14 +128,17 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Switch(
-          value: state,
-          onChanged: (bool s) {
+        child: Slider(
+          value: sliderAmount,
+          onChanged: (double delta){
             setState(() {
-              state = s;
+              sliderAmount = delta;
+              print(delta);
             });
           },
-          activeColor: Colors.green,
+          min: 0,
+          max: 100,
+          divisions: 100,  // Double to whole value from slider value
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(

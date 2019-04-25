@@ -65,7 +65,28 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
 
       body: Center(
-        child: CupertinoActivityIndicator()
+        child: RaisedButton(
+          child: Text("Click Me"),
+          onPressed: (){
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => CupertinoAlertDialog(
+                title: Text("Alert"),
+                content: Text("Phone is too Hot"),
+                actions: <Widget>[
+                  CupertinoDialogAction(
+                    isDefaultAction: true,
+                    child: Text("Bye"),
+                    onPressed: (){
+                      print("Bye");
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ],
+              )
+            );
+          },
+        )
       ),
     );
   }

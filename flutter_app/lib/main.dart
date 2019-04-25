@@ -83,9 +83,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontSize: 28.0
                 ),
               ),
-              new ConstrainedBox(
-                constraints: BoxConstraints(minWidth: 50),
-                child: new Text("Wow"),
+              new Baseline(
+                baseline: -10,
+                baselineType: TextBaseline.alphabetic,
+                child: new Text("2"),
               ),
               new Text("End")
             ],

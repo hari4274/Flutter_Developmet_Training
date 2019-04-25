@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int _selectedIndex = 1;
 
-  String txt = "";
+  bool checkBoxValue = false;
 
 
   void _incrementCounter() {
@@ -129,13 +129,20 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: TextField(
-          onChanged: (String str){
-            print(str);
-            txt = str;
-          },
-                   
-        )
+        child: Row(
+          children: <Widget>[
+            Checkbox(
+              value: checkBoxValue,
+              onChanged: (bool value){
+                print(value);
+                setState(() {
+                  checkBoxValue = value;
+                });
+              },              
+            ),
+            Text("Notification")
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[

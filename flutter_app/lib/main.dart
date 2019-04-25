@@ -130,31 +130,14 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: PopupMenuButton <WhyFather>(
-          onSelected: (WhyFather result){
-            print(result);
+        child: IconButton(
+          icon: Icon(Icons.map),
+          tooltip: "Open the Map for the contact",
+          onPressed: (){
             setState(() {
-              _selection = result;
+              print("Opening the Map");
             });
           },
-          itemBuilder: (BuildContext context) => <PopupMenuEntry<WhyFather>>[
-            const PopupMenuItem<WhyFather>(
-              value: WhyFather.harder,
-              child: Text("Working a lot harder"),
-            ),
-            const PopupMenuItem<WhyFather>(
-              value: WhyFather.smarter,
-              child: Text("Being a lot smarter"),
-            ),
-            const PopupMenuItem<WhyFather>(
-              value: WhyFather.selfStarter,
-              child: Text("Being a lot selfStarter"),
-            ),
-            const PopupMenuItem<WhyFather>(
-              value: WhyFather.tradingCharter,
-              child: Text("Placed in chanrge of the tradingCharter"),
-            ),
-          ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(

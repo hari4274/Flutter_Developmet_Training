@@ -44,77 +44,21 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+class MyItem {
+  MyItem({this.isExpanded: false, this.header, this.body});
+
+  bool isExpanded;
+  final String header;
+  final String body; 
+}
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  int _selectedIndex = 1;
 
-  void openBottomSheet(context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context){
-        return Container(
-          child: Wrap(
-            children: <Widget>[
-              ListTile(
-                leading: Icon(Icons.map),
-                title: Text("Map"),
-                onTap: (){
-                  print("Open Map");
-                  Navigator.of(context).pop();  // Close Bottom sheet after clicked
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.alarm),
-                title: Text("Alarm"),
-                onTap: (){
-                  print("Open Alarm");
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.phone),
-                title: Text("Phone"),
-                onTap: (){
-                  print("Open Phone");
-                },
-              )
-            ],
-          ),
-        );
-      }
-    );
-  }
-
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  void callContact() {
-    print("Call Contact Pressed");
-  }
-
-  void addInfoToContact() {
-    print("Add Information To Contact Pressed");
-  }
-
-  void itemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    print("Bottom Nav Item Tapped");
-  }
-
-  void buttonClick() {
-    print("Button Clicked");
-  }
+  List<MyItem> _items = <MyItem>[
+    MyItem(header: "Header1", body: "Body1"),
+    MyItem(header: "Header2", body: "Body2"),
+    MyItem(header: "Header3", body: "Body3"),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -124,71 +68,27 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-        backgroundColor: Colors.cyan,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.call),
-            tooltip: "Call Contact",
-            onPressed: callContact,
-          ),
-          IconButton(
-            icon: Icon(Icons.add),
-            tooltip: "Add Information To Contact",
-            onPressed: addInfoToContact,
-          )
-        ],
-      ),
-
-      drawer: Drawer(
-        child: Column(
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.alarm),
-              title: Text("Alarm"),
-              onTap: () {
-                // Change the application state
-                print("Change Page");
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
-      ),
-      
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: IconButton(
-          icon: Icon(Icons.open_in_new),
-          onPressed: (){
-            openBottomSheet(context);
+    return ListView(
+      children: <Widget>[
+        ExpansionPanelList(
+          expansionCallback: (int index, bool isExpanded){
+            setState(() {
+              _items[index].isExpanded = !_items[index].isExpanded;
+            });
           },
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Image(width: 30, image: AssetImage("assets/images/icon-home.png"),), title: Text("Home")),
-          BottomNavigationBarItem(icon: Icon(Icons.business), title: Text("Business")),
-          BottomNavigationBarItem(icon: Icon(Icons.school), title: Text("School"))
-        ],
-        currentIndex: _selectedIndex,
-        onTap: itemTapped,
-        fixedColor: Colors.amber,
-      ),
-
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-            print("FloatingActionButton1 Pressed");
-        },
-        child: Icon(Icons.add),
-        tooltip: 'Increment',
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat, // This trailing comma makes auto-formatting nicer for build methods.
+          children: _items.map((MyItem item){
+            return ExpansionPanel(
+              headerBuilder: (BuildContext context, bool isExpanded){
+                return Text(item.header);
+              },
+              isExpanded: item.isExpanded,
+              body: Container(
+                child: Text(item.body),
+              )
+            );
+          }).toList(),
+        )
+      ],
     );
   }
 }

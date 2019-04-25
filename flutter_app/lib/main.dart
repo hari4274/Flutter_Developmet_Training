@@ -93,19 +93,21 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
+      
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
        
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Container(
-          height: 50.0,
-          child: Center(
-            child: Text("Bottom App Bar")
-          ),
-        ),
+      
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
+          BottomNavigationBarItem(icon: Icon(Icons.business), title: Text("Business")),
+          BottomNavigationBarItem(icon: Icon(Icons.school), title: Text("School")),
+        ]
       ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',

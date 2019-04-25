@@ -50,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int _selectedIndex = 1;
   int _volume = 100;
+  bool state = false;
 
   void _incrementCounter() {
     setState(() {
@@ -128,12 +129,14 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: FloatingActionButton(
-          onPressed: () {
-            print("FloatingActionButton1 Pressed");
+        child: Switch(
+          value: state,
+          onChanged: (bool s) {
+            setState(() {
+              state = s;
+            });
           },
-          child: Icon(Icons.add),
-
+          activeColor: Colors.green,
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(

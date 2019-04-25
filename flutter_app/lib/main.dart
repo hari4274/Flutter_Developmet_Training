@@ -74,23 +74,15 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Container(
-          child: Row(
-            children: <Widget>[
-              new Text("Hello Wolrd Hari",
-                style: new TextStyle(
-                  color: Colors.amber,
-                  fontSize: 28.0
-                ),
-              ),
-              new Baseline(
-                baseline: -10,
-                baselineType: TextBaseline.alphabetic,
-                child: new Text("2"),
+        child: Column(
+            children: <Widget>
+            [
+              new AspectRatio(
+                aspectRatio: 4/3,
+                child: new Image(image: AssetImage("assets/images/ironman1.jpg")),
               ),
               new Text("End")
             ],
-          ),
         ),
        
       ),

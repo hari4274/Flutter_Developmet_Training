@@ -44,21 +44,10 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class MyItem {
-  MyItem({this.isExpanded: false, this.header, this.body});
-
-  bool isExpanded;
-  final String header;
-  final String body; 
-}
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  List<MyItem> _items = <MyItem>[
-    MyItem(header: "Header1", body: "Body1"),
-    MyItem(header: "Header2", body: "Body2"),
-    MyItem(header: "Header3", body: "Body3"),
-  ];
+  final GlobalKey<ScaffoldState> _scaffold = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -68,27 +57,30 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return ListView(
-      children: <Widget>[
-        ExpansionPanelList(
-          expansionCallback: (int index, bool isExpanded){
-            setState(() {
-              _items[index].isExpanded = !_items[index].isExpanded;
-            });
-          },
-          children: _items.map((MyItem item){
-            return ExpansionPanel(
-              headerBuilder: (BuildContext context, bool isExpanded){
-                return Text(item.header);
-              },
-              isExpanded: item.isExpanded,
-              body: Container(
-                child: Text(item.body),
-              )
+    return Scaffold(
+      key: _scaffold,
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+
+      body: Center(
+        child: RaisedButton(
+          onPressed: (){
+            final snkBar = SnackBar(
+              content: Text("Pizza Time"),
+              action: SnackBarAction(
+                label: "Order",
+                onPressed: (){
+                  print("Pizza orderd");
+                },
+              ),
             );
-          }).toList(),
-        )
-      ],
+
+            _scaffold.currentState.showSnackBar(snkBar);
+          },
+          child: Text("Click Me"),
+        ),
+      ),
     );
   }
 }

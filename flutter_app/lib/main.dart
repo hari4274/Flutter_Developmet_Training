@@ -44,25 +44,42 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-enum WhyFather { harder, smarter, selfStarter, tradingCharter}
+enum Movies { CaptainMarvel, IronMan }
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int _selectedIndex = 1;
 
-  TimeOfDay _time = TimeOfDay.now();
-  TimeOfDay picked;
-
-  Future<Null> selectTime(BuildContext context) async {
-    picked = await showTimePicker(
+  Future<void> OpenDialog() async {
+    switch(await showDialog(
       context: context,
-      initialTime: _time,
-    );
-
-    setState(() {
-      _time = picked;
-      print(_time);
-    });
+      builder: (BuildContext context){
+        return SimpleDialog(
+          title: const Text("Select A Movie"),
+          children: <Widget>[
+            SimpleDialogOption(
+              onPressed: (){
+                Navigator.pop(context, Movies.CaptainMarvel);
+              },
+              child: const Text("Captain Marvel"),
+            ),
+            SimpleDialogOption(
+              onPressed: (){
+                Navigator.pop(context, Movies.IronMan);
+              },
+              child: const Text("Iron Man"),
+            ),
+          ],
+        );
+      }
+    )){
+      case Movies.CaptainMarvel:
+        print("Captain Marvel Selected");
+        break;
+      case Movies.IronMan:
+        print("Iron Man Selected");
+        break;
+    }
   }
 
   void _incrementCounter() {
@@ -143,9 +160,9 @@ class _MyHomePageState extends State<MyHomePage> {
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: IconButton(
-          icon: Icon(Icons.alarm),
+          icon: Icon(Icons.play_circle_filled),
           onPressed: (){
-            selectTime(context);
+            OpenDialog();
           },
         ),
       ),

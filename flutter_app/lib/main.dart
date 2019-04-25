@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 void main() => runApp(MyApp());
 
@@ -64,21 +65,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
 
       body: Center(
-        child: RaisedButton(
-          onPressed: (){
-            final snkBar = SnackBar(
-              content: Text("Pizza Time"),
-              action: SnackBarAction(
-                label: "Order",
-                onPressed: (){
-                  print("Pizza orderd");
-                },
-              ),
-            );
-
-            _scaffold.currentState.showSnackBar(snkBar);
-          },
-          child: Text("Click Me"),
+        child: CupertinoButton(
+          child: Text("Hello"),
+          onPressed: null,
         ),
       ),
     );

@@ -61,14 +61,9 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Chip(
-          label: Text("Hariprasath"),
-          avatar: CircleAvatar(
-            child: Icon(Icons.sync),
-            backgroundColor: Colors.indigo,
-            foregroundColor: Colors.white,
-          ),
-          backgroundColor: Colors.amber,
+        child: Tooltip(
+          message: "This is ToolTip",
+          child: Text("Click Me"),
         ),
       ),
     );

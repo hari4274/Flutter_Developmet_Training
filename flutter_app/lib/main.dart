@@ -60,33 +60,12 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Container(
-        child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                leading: Icon(Icons.movie),
-                title: Text("IronMan"),
-                subtitle: Text("Capton Marvel is latest movie"),
-              ),
-              ButtonTheme.bar(
-                child: ButtonBar(
-                  children: <Widget>[
-                    FlatButton(
-                      child: Text("Watch Movie"),
-                      onPressed: (){},
-                    ),
-                    FlatButton(
-                      child: Text("Watch Trailer"),
-                      onPressed: (){},
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
+      body: Center(
+        child: LinearProgressIndicator(
+          value: 0.89,
+          backgroundColor: Colors.amber,
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+        )
       ),
     );
 	}

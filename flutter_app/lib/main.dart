@@ -60,38 +60,16 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: GridView.count(
-        crossAxisCount: 3,
+      body: ListView(
         children: <Widget>[
-          Center(
-            child: Text("Hello"),
-          ),
-          Center(
-            child: Text("Hello"),
-          ),
-          Center(
-            child: Text("Hello"),
-          ),
-          Center(
-            child: Text("Hello"),
-          ),
-          Center(
-            child: Text("Hello"),
-          ),
-          Center(
-            child: Text("Hello"),
-          ),
-          Center(
-            child: Text("Hello"),
-          ),
-          Center(
-            child: Text("Hello"),
-          ),
-          Center(
-            child: Text("Hello"),
+          ListTile(
+            title: Text("Iron Man"),
+            subtitle: Text("This Is an Subtitle"),
+            leading: Icon(Icons.movie),
+            trailing: Icon(Icons.movie),
           ),
         ],
-      ),
+      )
     );
 	}
 }

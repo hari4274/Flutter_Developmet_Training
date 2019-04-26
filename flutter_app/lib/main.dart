@@ -60,11 +60,37 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: CircularProgressIndicator(
-          value: 0.70,
-          valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
-        )
+      body: GridView.count(
+        crossAxisCount: 3,
+        children: <Widget>[
+          Center(
+            child: Text("Hello"),
+          ),
+          Center(
+            child: Text("Hello"),
+          ),
+          Center(
+            child: Text("Hello"),
+          ),
+          Center(
+            child: Text("Hello"),
+          ),
+          Center(
+            child: Text("Hello"),
+          ),
+          Center(
+            child: Text("Hello"),
+          ),
+          Center(
+            child: Text("Hello"),
+          ),
+          Center(
+            child: Text("Hello"),
+          ),
+          Center(
+            child: Text("Hello"),
+          ),
+        ],
       ),
     );
 	}

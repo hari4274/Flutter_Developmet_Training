@@ -47,10 +47,6 @@ class MyHomePage extends StatefulWidget {
 
 
 class _MyHomePageState extends State<MyHomePage> {
-  Icon icn = Icon(
-    Icons.supervisor_account,
-    color: Colors.red,
-  );
 
 	@override
 	Widget build(BuildContext context) {
@@ -65,9 +61,14 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: IconButton(
-          icon: icn,
-          onPressed: null,
+        child: Chip(
+          label: Text("Hariprasath"),
+          avatar: CircleAvatar(
+            child: Icon(Icons.sync),
+            backgroundColor: Colors.indigo,
+            foregroundColor: Colors.white,
+          ),
+          backgroundColor: Colors.amber,
         ),
       ),
     );

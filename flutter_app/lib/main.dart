@@ -45,19 +45,6 @@ class MyHomePage extends StatefulWidget {
 	_MyHomePageState createState() => _MyHomePageState();
 }
 
-class Name {
-  String fName; 
-  String sName;
-
-  Name({this.fName, this.sName});
-}
-
-var names = <Name> [
-  Name(fName: "Hari", sName: "Prasath"),
-  Name(fName: "Bala", sName: "Vignesh"),
-  Name(fName: "Prasath", sName: "A"),
-  Name(fName: "Arun", sName: "Kumar"),
-];
 
 class _MyHomePageState extends State<MyHomePage> {
 
@@ -73,34 +60,33 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: DataTable(
-        columns: <DataColumn>[
-          DataColumn(
-            label: Text("FirstName"),
-            onSort: (i, b) {
-              setState(() {
-                names.sort((a, b) => a.fName.compareTo(b.fName));
-              });
-            }
+      body: Container(
+        child: Card(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                leading: Icon(Icons.movie),
+                title: Text("IronMan"),
+                subtitle: Text("Capton Marvel is latest movie"),
+              ),
+              ButtonTheme.bar(
+                child: ButtonBar(
+                  children: <Widget>[
+                    FlatButton(
+                      child: Text("Watch Movie"),
+                      onPressed: (){},
+                    ),
+                    FlatButton(
+                      child: Text("Watch Trailer"),
+                      onPressed: (){},
+                    )
+                  ],
+                ),
+              )
+            ],
           ),
-          DataColumn(
-            label: Text("SurName"),
-            onSort: (i, b) {
-              setState(() {
-                names.sort((a, b) => a.sName.compareTo(b.sName));
-              });
-            }
-          )
-        ],
-        rows: names.map((name) => DataRow(cells: [
-            DataCell(
-              Text(name.fName),
-            ),
-            DataCell(
-              Text(name.sName),
-            )
-          ]
-        )).toList(),
+        ),
       ),
     );
 	}

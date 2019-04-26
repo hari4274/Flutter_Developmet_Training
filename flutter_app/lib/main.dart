@@ -61,10 +61,9 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: LinearProgressIndicator(
-          value: 0.89,
-          backgroundColor: Colors.amber,
-          valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+        child: CircularProgressIndicator(
+          value: 0.70,
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
         )
       ),
     );

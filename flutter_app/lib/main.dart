@@ -1,54 +1,57 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(
-    MaterialApp(
-      title: "Named routes Demo",
-      initialRoute: '/',
-      routes: {
-        '/': (context) => FirstScreen(),
-        '/second': (context) => SecondScreen(),
-      },
-    )    
-  );
+void main() => runApp(HeroApp());
+
+class HeroApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Transition Demo',
+      home: MainScreen(),
+    );
+  }
 }
 
-class FirstScreen extends StatelessWidget {
+class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('First Screen'),
+        title: Text('Main Screen'),
       ),
-      body: Center(
-        child: RaisedButton(
-          child: Text('Launch screen'),
-          onPressed: () {
-            // Navigate to the second screen using a named route
-            Navigator.pushNamed(context, '/second');
-          },
+      body: GestureDetector(
+        child: Hero(
+          tag: 'imageHero',
+          child: Image.network(
+            'https://picsum.photos/250?image=9',
+          ),
         ),
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) {
+            return DetailScreen();
+          }));
+        },
       ),
     );
   }
 }
 
-class SecondScreen extends StatelessWidget {
+class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Second Screen"),
-      ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            // Navigate back to the first screen by popping the current route
-            // off the stack
-            Navigator.pop(context);
-          },
-          child: Text('Go back!'),
+      body: GestureDetector(
+        child: Center(
+          child: Hero(
+            tag: 'imageHero',
+            child: Image.network(
+              'https://picsum.photos/250?image=9',
+            ),
+          ),
         ),
+        onTap: () {
+          Navigator.pop(context);
+        },
       ),
     );
   }

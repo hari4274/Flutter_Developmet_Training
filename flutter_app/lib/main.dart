@@ -44,7 +44,30 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin{
+  AnimationController _controller;
+  Animation<Color> animation;
+
+  _MyHomePageState(){
+    _controller = AnimationController(
+      duration: Duration(milliseconds: 4500),
+      vsync: this,
+    );
+
+    animation = ColorTween(
+      begin: Color.fromRGBO(255, 0, 0, 1),
+      end: Color.fromRGBO(0, 0, 255, 1.0)
+    ).animate(_controller)
+    ..addListener((){
+      setState(() {
+        
+      });
+    });
+
+    _controller.forward();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -60,25 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text(widget.title),
         ),
         body: Container(
-            child: Column(
-              children: <Widget>[
-                RaisedButton(
-                  child: Text("Batman"),
-                  onPressed: () {
-
-                  },
-                ),
-                RaisedButton(
-                  child: Text("Superman"),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SecondPage(str: "Superman"))
-                    );
-                  },
-                ),
-              ],
-            )
+            decoration: BoxDecoration(color: animation.value),
         )
     );
   }

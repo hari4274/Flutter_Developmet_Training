@@ -5,10 +5,14 @@ class AddtionTab extends StatefulWidget {
   _AddtionState createState() => _AddtionState();
 }
 
-class _AddtionState  extends State<AddtionTab>{
+class _AddtionState  extends State<AddtionTab> with AutomaticKeepAliveClientMixin{
+  @override
+  bool get wantKeepAlive => true;
+
   double num1;
   double num2;
   double result = 0;
+  
   @override
   Widget build(BuildContext context) {
     return Container (
@@ -25,7 +29,7 @@ class _AddtionState  extends State<AddtionTab>{
             },
           ),
           RaisedButton(
-            child:Text("Add"),
+            child:Text("Add1"),
             onPressed: () {
               setState(() {
                 result = num1 + num2;

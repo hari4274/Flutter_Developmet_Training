@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
       ),
       home: MyHomePage(title: 'Epic Page Is Amazing'),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

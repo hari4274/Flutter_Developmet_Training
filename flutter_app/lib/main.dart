@@ -1,6 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import 'dart:async';
+import 'dart:convert';
 
 void main() => runApp(MyApp());
+
+Future<Post> fetchPost() async {
+  final response = await http.get("https://jsonplaceholder.typicode.com/posts/1");
+
+  if (response.statusCode == 200){
+    return Post.fromJson(json.decode(response.body));
+  } else {
+    throw Exception("Failed to load the post, try again later");
+  }
+}
+
+class Post {
+  final int userID;
+  final int id;
+  final String title;
+  final String body;
+  
+  Post({this.userID, this.id, this.title, this.body});
+
+  factory Post.fromJson(Map<String, dynamic> json) {
+    return Post(
+      userID: json['userId'],
+      id: json['id'],
+      title: json['title'],
+      body: json['body']
+    );
+  }
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -46,6 +78,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  final Future<Post> post = fetchPost();
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -60,16 +94,18 @@ class _MyHomePageState extends State<MyHomePage> {
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
         ),
-        body: Container(
-            child: Column(
-              children: <Widget>[
-                RaisedButton(
-                  child: Text("Stop"),
-                  onPressed: (){
-                  },
-                )
-              ],
-            ),
+        body: Center(
+            child: FutureBuilder<Post>(
+              future: post,
+              builder: (context, snapshot){
+                if(snapshot.hasData){
+                  return Text(snapshot.data.title);
+                } else if (snapshot.hasError) {
+                  return Text("${snapshot.error}");
+                }
+                return CircularProgressIndicator();
+              },
+            )
         )
     );
   }

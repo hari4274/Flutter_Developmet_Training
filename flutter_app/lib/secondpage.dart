@@ -16,7 +16,7 @@ class SecondPage extends StatelessWidget {
         child: RaisedButton(
           child: Text("Go Back"),
           onPressed: (){
-            Navigator.pop(context);
+            Navigator.pop(context, "Welcome Back " + this.str.toUpperCase());
           },
         ),
       ),

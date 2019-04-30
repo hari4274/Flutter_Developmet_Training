@@ -49,6 +49,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  final GlobalKey<ScaffoldState>_scaffold = GlobalKey<ScaffoldState>();
+
   String lblValue = "Epic Text1";
 
   Row rw = Row(
@@ -61,6 +63,15 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             );
 
+  GotoSecondPage(BuildContext context, String title) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SecondPage(str: title,))
+    );
+
+    _scaffold.currentState.showSnackBar(SnackBar(content: Text("$result"),));
+  }
+
 	@override
 	Widget build(BuildContext context) {
 		// This method is rerun every time setState is called, for instance as done
@@ -70,6 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
 		// fast, so that you can just rebuild anything that needs updating rather
 		// than having to individually change instances of widgets.
 		return Scaffold(
+      key: _scaffold,
 			appBar: AppBar(
 				title: Text(widget.title),
 			),
@@ -79,13 +91,13 @@ class _MyHomePageState extends State<MyHomePage> {
             RaisedButton(
               child: Text("Bat Man"),
               onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => SecondPage(str: "Bat Man")));
+                GotoSecondPage(context, "BatMan");
               },
             ),
             RaisedButton(
               child: Text("Super Man"),
               onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => SecondPage(str: "Super Man")));
+                GotoSecondPage(context, "SuperMan");
               },
             ),
           ],

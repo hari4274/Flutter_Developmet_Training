@@ -74,12 +74,22 @@ class _MyHomePageState extends State<MyHomePage> {
 				title: Text(widget.title),
 			),
 			body: Container(
-        child: RaisedButton(
-          child: Text("Goto Next Page"),
-          onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => SecondPage()));
-          },
-        ),
+        child: Column(
+          children: <Widget>[
+            RaisedButton(
+              child: Text("Bat Man"),
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => SecondPage(str: "Bat Man")));
+              },
+            ),
+            RaisedButton(
+              child: Text("Super Man"),
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => SecondPage(str: "Super Man")));
+              },
+            ),
+          ],
+        )
       ),
 		);
 	}

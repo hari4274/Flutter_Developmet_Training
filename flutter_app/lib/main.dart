@@ -1,15 +1,43 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:path_provider/path_provider.dart';
 
 void main() => runApp(MyApp());
+
+class CounterStorage {
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
+  }
+
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File("$path/counter.txt");
+  }
+
+  Future<int> readCounter() async {
+    try {
+      final file = await _localFile;
+      
+      String contents = await file.readAsString();
+    } catch (e) {
+      return 0;
+    }
+  }
+
+  Future<File> writeCounter(int counter) async {
+    final file = await _localFile;
+
+    return file.writeAsString('$counter');  
+  }
+}
 
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,10 +54,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.red,
       ),
-      home: MyHomePage(
-        title: 'Epic Page Is Amazing',
-        channel: IOWebSocketChannel.connect("ws://echo.websocket.org")
-      ),
+      home: MyHomePage(title: 'Epic Page Is Amazing'),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -37,9 +62,9 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
 
-  final WebSocketChannel channel;
+  final CounterStorage storage = CounterStorage();
 
-  MyHomePage({Key key, this.title, @required this.channel}) : super(key: key);
+  MyHomePage({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -57,8 +82,25 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
 
-  TextEditingController _controller = TextEditingController();
+  @override
+  void initState(){
+    widget.storage.readCounter().then((int value){
+      setState((){
+        _counter = value;
+      });
+    });
+  }
+
+  Future<File> _incrementCounter(){
+    setState((){
+        _counter++;
+      });
+    
+    return widget.storage.writeCounter(_counter);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -74,46 +116,18 @@ class _MyHomePageState extends State<MyHomePage> {
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
+        body: Center(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Form(
-                child: TextFormField(
-                  controller: _controller,
-                  decoration: InputDecoration(labelText: "Send a Message"),
-                ),
-              ),
-              StreamBuilder(
-                stream: widget.channel.stream,
-                builder: (context, snapshot){
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 24.0),
-                    child: Text(snapshot.hasData ? '${snapshot.data}': ''),
-                  );
-                },
-              ),
+              Text("$_counter"),
               RaisedButton(
-                child: Text("Send"),
-                onPressed: _sendMessage,
+                child: Text("Increment"),
+                onPressed: _incrementCounter,
               )
             ],
           ),
         )
     );
-  }
-
-  void _sendMessage() {
-    if(_controller.text.isNotEmpty){
-      widget.channel.sink.add(_controller.text);
-    }
-  }
-
-  @override
-  void dispose() {
-    widget.channel.sink.close();
-    super.dispose();
   }
 
 }

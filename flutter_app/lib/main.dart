@@ -48,6 +48,17 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  String lblValue = "Epic Text1";
+
+  Row rw = Row(
+              children: <Widget>[
+                 Icon(Icons.star),
+                 Icon(Icons.star),
+                 Icon(Icons.star),
+                 Icon(Icons.star),
+                 Icon(Icons.star),
+              ],
+            );
 
 	@override
 	Widget build(BuildContext context) {
@@ -64,16 +75,23 @@ class _MyHomePageState extends State<MyHomePage> {
 			body: Container(
         child: Row(
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                 Icon(Icons.star),
-                 Icon(Icons.star),
-                 Icon(Icons.star),
-                 Icon(Icons.star),
-                 Icon(Icons.star),
-              ],
-            ),
-            Text("Epic Text")
+            rw,
+            Text(lblValue),
+            RaisedButton(
+              onPressed: (){
+                rw = Row(
+                          children: <Widget>[
+                            Icon(Icons.star),
+                            Icon(Icons.star),
+                          ],
+                        );
+                setState(() {
+                  
+                  lblValue = "New Text";
+                });
+              },
+              child: Text("Update"),
+            )
           ],
         ),
       ),

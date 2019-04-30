@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'secondpage.dart';
 
 void main() => runApp(MyApp());
 
@@ -44,30 +43,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin{
-  AnimationController _controller;
-  Animation<Color> animation;
-  Color val;
-
-  _MyHomePageState(){
-    _controller = AnimationController(
-      duration: Duration(milliseconds: 4500),
-      vsync: this,
-    );
-
-    animation = ColorTween(
-      begin: Color.fromRGBO(255, 0, 0, 1),
-      end: Color.fromRGBO(0, 0, 255, 1.0)
-    ).animate(_controller)
-    ..addListener((){
-      setState(() {
-        val = animation.value;
-      });
-    });
-
-    _controller.forward();
-  }
-
+class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
@@ -84,19 +60,11 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
           title: Text(widget.title),
         ),
         body: Container(
-            decoration: BoxDecoration(color: animation.value),
             child: Column(
               children: <Widget>[
                 RaisedButton(
-                  child: Text("Reverse"),
-                  onPressed: (){
-                    _controller.reverse();
-                  },
-                ),
-                RaisedButton(
                   child: Text("Stop"),
                   onPressed: (){
-                    _controller.stop();
                   },
                 )
               ],
@@ -104,4 +72,5 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
         )
     );
   }
+
 }

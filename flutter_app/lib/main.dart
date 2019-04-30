@@ -1,44 +1,12 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-
-import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:web_socket_channel/io.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 void main() => runApp(MyApp());
 
-Future<List<Photo>> fetchPhotos(http.Client client) async {
-  final response = await http.get("https://jsonplaceholder.typicode.com/photos");
-
-  return compute(parsePhotos, response.body);
-}
-
-List<Photo> parsePhotos(String responseBody) {
-  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-
-  return parsed.map<Photo>((json) => Photo.fromJson(json)).toList();
-}
-
-class Photo {
-  final int albumId;
-  final int id;
-  final String title;
-  final String url;
-  final String thumbnailUrl;
-  
-  Photo({this.albumId, this.id, this.title, this.url, this.thumbnailUrl});
-
-  factory Photo.fromJson(Map<String, dynamic> json) {
-    return Photo(
-      albumId: json['albumId'] as int,
-      id: json['id'] as int,
-      title: json['title'] as String,
-      url: json['url'] as String,
-      thumbnailUrl: json['thumbnailUrl'] as String,
-    );
-  }
-}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -58,14 +26,20 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.red,
       ),
-      home: MyHomePage(title: 'Epic Page Is Amazing'),
+      home: MyHomePage(
+        title: 'Epic Page Is Amazing',
+        channel: IOWebSocketChannel.connect("ws://echo.websocket.org")
+      ),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+
+  final WebSocketChannel channel;
+
+  MyHomePage({Key key, this.title, @required this.channel}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -84,6 +58,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -99,37 +74,46 @@ class _MyHomePageState extends State<MyHomePage> {
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
         ),
-        body: FutureBuilder<List<Photo>>(
-          future: fetchPhotos(http.Client()),
-          builder: (context, snapshot){
-            if(snapshot.hasError){
-              print(snapshot.error);
-            }
-
-            return snapshot.hasData
-              ? PhotosList(photos: snapshot.data)
-              : Center(child: CircularProgressIndicator(),);
-          },
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Form(
+                child: TextFormField(
+                  controller: _controller,
+                  decoration: InputDecoration(labelText: "Send a Message"),
+                ),
+              ),
+              StreamBuilder(
+                stream: widget.channel.stream,
+                builder: (context, snapshot){
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 24.0),
+                    child: Text(snapshot.hasData ? '${snapshot.data}': ''),
+                  );
+                },
+              ),
+              RaisedButton(
+                child: Text("Send"),
+                onPressed: _sendMessage,
+              )
+            ],
+          ),
         )
     );
   }
 
-}
-
-class PhotosList extends StatelessWidget{
-  final List<Photo> photos;
-  PhotosList({Key key, this.photos}):super(key: key);
+  void _sendMessage() {
+    if(_controller.text.isNotEmpty){
+      widget.channel.sink.add(_controller.text);
+    }
+  }
 
   @override
-  Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2
-      ),
-      itemCount: photos.length,
-      itemBuilder: (context, index) {
-        return Image.network(photos[index].thumbnailUrl);
-      },
-    );
+  void dispose() {
+    widget.channel.sink.close();
+    super.dispose();
   }
+
 }

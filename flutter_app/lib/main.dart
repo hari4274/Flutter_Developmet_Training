@@ -73,28 +73,33 @@ class _MyHomePageState extends State<MyHomePage> {
 				title: Text(widget.title),
 			),
 			body: Container(
-        child: Row(
-          children: <Widget>[
-            rw,
-            Text(lblValue),
-            RaisedButton(
-              onPressed: (){
-                rw = Row(
-                          children: <Widget>[
-                            Icon(Icons.star),
-                            Icon(Icons.star),
-                          ],
-                        );
-                setState(() {
-                  
-                  lblValue = "New Text";
-                });
-              },
-              child: Text("Update"),
-            )
-          ],
+        child: RaisedButton(
+          child: Text("Goto Next Page"),
+          onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => SecondPage()));
+          },
         ),
       ),
 		);
 	}
+}
+
+class SecondPage extends StatelessWidget {
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+			appBar: AppBar(
+				title: Text("Second Page"),
+			),
+			body: Center(
+        child: RaisedButton(
+          child: Text("Goto First Page"),
+          onPressed: (){
+            Navigator.pop(context);
+          },
+        ),
+      ),
+		);
+  } 
 }

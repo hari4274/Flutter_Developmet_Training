@@ -48,30 +48,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-	int _currentStep = 0;
-
-	List<Step> steps = <Step>[
-		Step(
-			title: Text("Step 1"),
-			content: Text("Instruction 1 of step 1.")
-		),
-		Step(
-			title: Text("Step 2"),
-			content: Text("Instruction 2 of step 2")
-		),
-		Step(
-			title: Text("Step 3"),
-			content: Text("Instruction 3 of step 3")
-		),
-		Step(
-			title: Text("Step 4"),
-			content: Text("Instruction 4 of step 4")
-		),
-		Step(
-			title: Text("Step 5"),
-			content: Text("Instruction 5 of step 5")
-		),
-	];
 
 	@override
 	Widget build(BuildContext context) {
@@ -85,28 +61,20 @@ class _MyHomePageState extends State<MyHomePage> {
 			appBar: AppBar(
 				title: Text(widget.title),
 			),
-			body: Stepper(
-				currentStep: _currentStep,
-				steps: steps,
-				onStepContinue: () {
-					setState(() {
-						if(_currentStep <steps.length -1){
-					  		_currentStep++;
-						}
-					});
-				},
-				onStepCancel: () {
-					print(steps.length);
-					print("Cancel Button Pressed ("+_currentStep.toString()+")");
-					setState(() {
-						if(_currentStep < steps.length +1 && _currentStep > 0){
-					  		_currentStep--;
-						}
-					});
-				},
-				onStepTapped: (int index){
-					print(index);
-				},
+			body: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text("1"),
+            Text("2"),
+            Text("3"),
+            Text("4"),
+            Text("5"),
+            Text("6"),
+          ],
+        ),
+				
 			),
 		);
 	}

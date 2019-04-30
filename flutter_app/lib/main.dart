@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -7,33 +8,34 @@ import 'dart:io';
 
 void main() => runApp(MyApp());
 
-Future<Post> fetchPost() async {
-  final response = await http.get(
-    "https://jsonplaceholder.typicode.com/posts/1",
-    headers: {HttpHeaders.authorizationHeader: "Basic api token"}
-  );
+Future<List<Photo>> fetchPhotos(http.Client client) async {
+  final response = await http.get("https://jsonplaceholder.typicode.com/photos");
 
-  if (response.statusCode == 200){
-    return Post.fromJson(json.decode(response.body));
-  } else {
-    throw Exception("Failed to load the post, try again later");
-  }
+  return compute(parsePhotos, response.body);
 }
 
-class Post {
-  final int userID;
+List<Photo> parsePhotos(String responseBody) {
+  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+
+  return parsed.map<Photo>((json) => Photo.fromJson(json)).toList();
+}
+
+class Photo {
+  final int albumId;
   final int id;
   final String title;
-  final String body;
+  final String url;
+  final String thumbnailUrl;
   
-  Post({this.userID, this.id, this.title, this.body});
+  Photo({this.albumId, this.id, this.title, this.url, this.thumbnailUrl});
 
-  factory Post.fromJson(Map<String, dynamic> json) {
-    return Post(
-      userID: json['userId'],
-      id: json['id'],
-      title: json['title'],
-      body: json['body']
+  factory Photo.fromJson(Map<String, dynamic> json) {
+    return Photo(
+      albumId: json['albumId'] as int,
+      id: json['id'] as int,
+      title: json['title'] as String,
+      url: json['url'] as String,
+      thumbnailUrl: json['thumbnailUrl'] as String,
     );
   }
 }
@@ -82,7 +84,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  final Future<Post> post = fetchPost();
 
   @override
   Widget build(BuildContext context) {
@@ -98,20 +99,37 @@ class _MyHomePageState extends State<MyHomePage> {
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
         ),
-        body: Center(
-            child: FutureBuilder<Post>(
-              future: post,
-              builder: (context, snapshot){
-                if(snapshot.hasData){
-                  return Text(snapshot.data.title);
-                } else if (snapshot.hasError) {
-                  return Text("${snapshot.error}");
-                }
-                return CircularProgressIndicator();
-              },
-            )
+        body: FutureBuilder<List<Photo>>(
+          future: fetchPhotos(http.Client()),
+          builder: (context, snapshot){
+            if(snapshot.hasError){
+              print(snapshot.error);
+            }
+
+            return snapshot.hasData
+              ? PhotosList(photos: snapshot.data)
+              : Center(child: CircularProgressIndicator(),);
+          },
         )
     );
   }
 
+}
+
+class PhotosList extends StatelessWidget{
+  final List<Photo> photos;
+  PhotosList({Key key, this.photos}):super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2
+      ),
+      itemCount: photos.length,
+      itemBuilder: (context, index) {
+        return Image.network(photos[index].thumbnailUrl);
+      },
+    );
+  }
 }

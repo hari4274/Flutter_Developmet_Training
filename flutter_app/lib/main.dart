@@ -62,18 +62,21 @@ class _MyHomePageState extends State<MyHomePage> {
 				title: Text(widget.title),
 			),
 			body: Container(
-        color: Colors.red,
         child: Row(
-          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Icon(Icons.star),
-            Icon(Icons.star),
-            Icon(Icons.star),
-            Icon(Icons.star),
-            Icon(Icons.star),
+            Row(
+              children: <Widget>[
+                 Icon(Icons.star),
+                 Icon(Icons.star),
+                 Icon(Icons.star),
+                 Icon(Icons.star),
+                 Icon(Icons.star),
+              ],
+            ),
+            Text("Epic Text")
           ],
-        ),			
-			),
+        ),
+      ),
 		);
 	}
 }

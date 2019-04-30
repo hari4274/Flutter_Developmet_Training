@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'secondpage.dart';
 
 void main() => runApp(MyApp());
 
@@ -84,22 +85,4 @@ class _MyHomePageState extends State<MyHomePage> {
 	}
 }
 
-class SecondPage extends StatelessWidget {
-  
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-			appBar: AppBar(
-				title: Text("Second Page"),
-			),
-			body: Center(
-        child: RaisedButton(
-          child: Text("Goto First Page"),
-          onPressed: (){
-            Navigator.pop(context);
-          },
-        ),
-      ),
-		);
-  } 
-}
+

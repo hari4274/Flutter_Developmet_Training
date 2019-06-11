@@ -51,9 +51,10 @@ Step - 3:
 	export PATH=$PATH:$ANDROID_HOME/tools/bin
 	export PATH=$PATH:$ANDROID_HOME/platform-tools
 	export PATH=$PATH:/opt/gradle/gradle-5.2.1/bin
+
 	# Flutter Path
-	export PATH=$PATH:/home/hari/workspace/flutter/flutter/bin
-	
+	export PATH=$PATH:$HOME/workspace/flutter/flutter/bin
+
 	# Flutter Web Path
 	export PATH=$PATH:$HOME/workspace/flutter/flutter/bin/cache/dart-sdk/bin
 	export PATH=$PATH:$HOME/.pub-cache/bin

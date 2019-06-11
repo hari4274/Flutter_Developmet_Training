@@ -1,5 +1,9 @@
 ## flutter_app - Hari
 
+#### Flutter Web
+ - https://www.didierboelens.com/2019/05/flutter-for-the-web/
+ - https://github.com/flutter/flutter_web
+
 * Based on Udemy course:
 
    https://github.com/SonarSystems/Flutter-Tutorials
@@ -40,7 +44,7 @@ Step - 3:
 
    Add Following Lines:
 
-    # Android SDK path
+    	# Android SDK path
 	export ANDROID_HOME=$HOME/Android/Sdk
 	export PATH=$PATH:$ANDROID_HOME/emulator
 	export PATH=$PATH:$ANDROID_HOME/tools
@@ -49,6 +53,12 @@ Step - 3:
 	export PATH=$PATH:/opt/gradle/gradle-5.2.1/bin
 	# Flutter Path
 	export PATH=$PATH:/home/hari/workspace/flutter/flutter/bin
+	
+	# Flutter Web Path
+	export PATH=$PATH:$HOME/workspace/flutter/flutter/bin/cache/dart-sdk/bin
+	export PATH=$PATH:$HOME/.pub-cache/bin
+
+	PROMPT_DIRTRIM=1
 
    optional:
 

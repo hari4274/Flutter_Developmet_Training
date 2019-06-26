@@ -145,3 +145,24 @@ Step - 9:
 # Note:
    
    * Before run the above command you should connect android device or any anroid emulator to the System.
+
+### Errors and Solutions
+
+#### Issue1: While "fliutter doctor" clang++ not installed
+	
+	Running flutter doctor...
+	Doctor summary (to see all details, run flutter doctor -v):
+	[✓] Flutter (Channel master, v1.7.10-pre.19, on Linux, locale en_IN)
+	[✓] Android toolchain - develop for Android devices (Android SDK version 28.0.3)
+	[✓] Chrome - develop for the web
+	[✗] Linux toolchain - develop for Linux desktop
+	    ✗ clang++ is not installed
+	[✓] Android Studio (version 3.4)
+	[✓] VS Code (version 1.35.1)
+	[✓] Connected device (2 available)
+
+	! Doctor found issues in 1 category.
+	
+##### Solution1:
+
+`sudo apt-get install clang`
